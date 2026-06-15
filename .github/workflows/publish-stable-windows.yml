@@ -114,6 +114,7 @@ jobs:
       RELEASE_VERSION: ${{ needs.check.outputs.RELEASE_VERSION }}
       SHOULD_BUILD: yes
       VSCODE_ARCH: ${{ matrix.vscode_arch }}
+      DISABLE_MSI: yes
     outputs:
       RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
 
@@ -146,6 +147,8 @@ jobs:
         run: ./build/windows/package.sh
 
       - name: Prepare assets
+        env:
+          DISABLE_MSI: yes
         run: ./prepare_assets.sh
 
       - name: Upload Bunker installer
@@ -154,6 +157,5 @@ jobs:
           name: bunker-windows-${{ matrix.vscode_arch }}
           path: |
             assets/*.exe
-            assets/*.msi
             assets/*.zip
           retention-days: 7
