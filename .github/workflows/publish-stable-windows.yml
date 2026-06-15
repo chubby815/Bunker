@@ -114,7 +114,8 @@ jobs:
       RELEASE_VERSION: ${{ needs.check.outputs.RELEASE_VERSION }}
       SHOULD_BUILD: yes
       VSCODE_ARCH: ${{ matrix.vscode_arch }}
-      DISABLE_MSI: yes
+      SHOULD_BUILD_MSI: no
+      SHOULD_BUILD_MSI_NOUP: no
     outputs:
       RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
 
@@ -148,7 +149,8 @@ jobs:
 
       - name: Prepare assets
         env:
-          DISABLE_MSI: yes
+          SHOULD_BUILD_MSI: no
+          SHOULD_BUILD_MSI_NOUP: no
         run: ./prepare_assets.sh
 
       - name: Upload Bunker installer
